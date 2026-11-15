@@ -30,6 +30,7 @@
     "foundation.copycat.BlockEntityAccessor",
     "foundation.copycat.BlockMixin",
     "foundation.copycat.BlockStateBaseCacheMixin",
+    "foundation.copycat.BlockStateBaseLightMixin",
     "foundation.copycat.BlockStateBaseMixin",
     "foundation.copycat.ChunkAccessAccessor",
     "foundation.copycat.ConnectedTextureBehaviourMixin",

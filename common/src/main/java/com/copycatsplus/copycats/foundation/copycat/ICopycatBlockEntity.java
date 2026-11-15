@@ -91,6 +91,9 @@ public interface ICopycatBlockEntity extends SpecialBlockEntityItemRequirement, 
 
     default void onLoad() {
         BlockEntityUtils.updateLight((BlockEntity) this);
+        BlockEntity be = (BlockEntity) this;
+        if (be.getLevel() != null)
+            CopycatLightHelper.refreshLightIfTransmitting(be.getLevel(), be.getBlockPos());
     }
 
     default ICopycatBlock getBlock() {
@@ -212,8 +215,11 @@ public interface ICopycatBlockEntity extends SpecialBlockEntityItemRequirement, 
             if (!(blockState.getBlock() instanceof ICopycatBlock cb))
                 return;
             BlockState acceptedBlockState = cb.getAcceptedBlockState(self.getLevel(), self.getBlockPos(), self.getConsumedItem(), null);
-            if (acceptedBlockState != null && self.getMaterial().is(acceptedBlockState.getBlock()))
+            if (acceptedBlockState != null && self.getMaterial().is(acceptedBlockState.getBlock())) {
+                if (prevMaterial != self.getMaterial())
+                    BlockEntityUtils.redraw((BlockEntity) self); // e.g. material applied through NBT; refreshes lighting
                 return;
+            }
             self.setConsumedItem(ItemStack.EMPTY);
             self.setMaterialInternal(AllBlocks.COPYCAT_BASE.getDefaultState());
         }

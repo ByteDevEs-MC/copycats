@@ -1,5 +1,6 @@
 package com.copycatsplus.copycats.utility;
 
+import com.copycatsplus.copycats.foundation.copycat.CopycatLightHelper;
 import com.copycatsplus.copycats.foundation.copycat.ICopycatBlockEntity;
 import com.copycatsplus.copycats.foundation.copycat.multistate.IMultiStateCopycatBlockEntity;
 import com.copycatsplus.copycats.mixin.foundation.copycat.BlockEntityAccessor;
@@ -29,6 +30,7 @@ public class BlockEntityUtils {
             BlockState state = blockEntity.getBlockState();
             level.sendBlockUpdated(blockEntity.getBlockPos(), state, state, 16);
             updateLight(blockEntity);
+            CopycatLightHelper.refreshLight(level, blockEntity.getBlockPos());
         }
     }
 
